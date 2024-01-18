@@ -79,12 +79,14 @@ S  : Treffer, Schiff versenkt
 
 Der Code lässt sich mit 
 
+```
 g++  .\Spiel.cpp .\Spieler.cpp .\Spielfeld.cpp .\CppRandom.cpp .\File.cpp .\Menu.cpp  -o schiff
+```
 
 kompilieren und über
-
+```
 ./schiff
-
+```
 starten.
 
 
