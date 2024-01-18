@@ -31,6 +31,15 @@ int Menu::startMenu()
 
     FileTest.close();
 
+    std::cout << "**********************************************\n";
+    std::cout << "*          Willkommen bei Schiffe Versenken!  *\n";
+    std::cout << "**********************************************\n";
+    std::cout << "*                (1) Neues Spiel              *\n";
+    std::cout << "*                (2) Spiel laden              *\n";
+    std::cout << "*                (3) Anleitung                *\n";
+    std::cout << "*                (4) Beenden                  *\n";
+    std::cout << "**********************************************\n";
+
     std::cout << "Willkommen bei Schiffe versenken!" << std::endl;
     std::cout << "~~~Menue~~~" << std::endl;
     std::cout << " " << std::endl;
