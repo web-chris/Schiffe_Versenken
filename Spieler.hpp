@@ -4,7 +4,6 @@
 #include <iostream>
 #include "Spielfeld.hpp"
 #include <memory>
-#include "CppRandom.hpp"
 
 enum class SpielerTyp
 {
@@ -21,7 +20,6 @@ private:
     bool init;
 
 public:
-    Random rand;
     Spieler(SpielerTyp pSpielerTyp);
     Spieler(SpielerTyp pSpielerTyp, bool init);
     ZellenStatus gibZellenStatus(int ireihe, int ispalte);
@@ -38,4 +36,5 @@ public:
     void spielFeldInit();
     SpielFeld gibFeld();
 };
+
 #endif

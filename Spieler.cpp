@@ -3,7 +3,7 @@
 #include <iostream>
 #include <memory>
 #include "Spielfeld.hpp"
-#include "CppRandom.hpp"
+#include "Globals.hpp"
 
 Spieler::Spieler(SpielerTyp pSpielerTyp) : spielerTyp(pSpielerTyp)
 {
@@ -18,13 +18,13 @@ void Spieler::ki_Schiffe_platzierbereit(bool platzierSchiffe)
     if (platzierSchiffe)
     {
         std::cout << " " << std::endl;
-        std::cout << "Spielfeld des Gegners" << std::endl;
+        std::cout << "Spielfeld des Gengners" << std::endl;
         spielFeldInit();
         ki_Schiffe_platzieren(5, 1); // Schlachtschiff 1
         ki_Schiffe_platzieren(4, 2); // Kreuzer 2
         ki_Schiffe_platzieren(3, 3); // Zerstörer 3
         ki_Schiffe_platzieren(2, 4); // U-Boote 4
-        spielfeldAusgebe(false);     // Sichtbar!
+        spielfeldAusgebe(false);     // Schiffe ausgeblendet!
     }
 }
 void Spieler::spieler_Schiffe_platzieren(bool platzierSchiffe)
@@ -34,11 +34,11 @@ void Spieler::spieler_Schiffe_platzieren(bool platzierSchiffe)
         std::cout << " " << std::endl;
         std::cout << "Spielfeld des Spielers" << std::endl;
         spielFeldInit();
-        spielfeldAusgebe(true);
+        spielfeldAusgebe(true);                             // Schiffe sichtbar!
         spieler_Schiffe_platzieren(5, 1, "Schlachtschiff"); // Schlachtschiff 1
         spieler_Schiffe_platzieren(4, 2, "Kreuzer");        // Kreuzer 2
         spieler_Schiffe_platzieren(3, 3, "Zerstoerer");     // Zerstörer 3
-        spieler_Schiffe_platzieren(2, 4, "U-Boote");        // U-Boote 4
+        spieler_Schiffe_platzieren(2, 2, "U-Boote");        // U-Boote 4
     }
 }
 
@@ -176,9 +176,9 @@ void Spieler::ki_Schiffe_platzieren(int schifflaenge, int anzahl)
         isInputValid = false;
         while (!isInputValid)
         {
-            schiffReihe = rand.GetRandomNumberBetween(1, SPIELFELD_GROESSE);
-            schiffSpalte = rand.GetRandomNumberBetween(1, SPIELFELD_GROESSE);
-            ausrichtung = rand.GetRandomNumberBetween(1, 2);
+            schiffReihe = globalRandom.GetRandomNumberBetween(1, SPIELFELD_GROESSE);
+            schiffSpalte = globalRandom.GetRandomNumberBetween(1, SPIELFELD_GROESSE);
+            ausrichtung = globalRandom.GetRandomNumberBetween(1, 2);
             if (ausrichtung == 2)
             {
                 vertikal = true;
@@ -187,6 +187,7 @@ void Spieler::ki_Schiffe_platzieren(int schifflaenge, int anzahl)
             {
                 vertikal = false;
             }
+
             if (spielfeld->schiffPlatzieren(schiffReihe - 1, schiffSpalte - 1, schifflaenge, vertikal))
             {
                 isInputValid = true;

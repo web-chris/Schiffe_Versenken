@@ -2,8 +2,6 @@
 #define SPIELFELD_H
 #include <vector>
 #include <iostream>
-#include "CppRandom.hpp"
-
 enum ZellenStatus
 {
     LEER,
@@ -23,7 +21,6 @@ private:
     SpielFeld spielfeld;
 
 public:
-    Random rand;
     void spielfeldInitialisieren();
     ZellenStatus gibZellenStatus(int ireihe, int ispalte);
     void setzeZellenStatus(int ireihe, int ispalte, ZellenStatus zellenStatus);
@@ -34,4 +31,5 @@ public:
     void platziere_Schiffe(int schifflaenge, int anzahl);
     SpielFeld gibFeld();
 };
+
 #endif

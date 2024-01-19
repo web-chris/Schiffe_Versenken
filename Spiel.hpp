@@ -2,13 +2,11 @@
 #define SPIEL_H
 #include <memory>
 #include "Spieler.hpp"
-#include "CppRandom.hpp"
 
 class Spiel
 {
 private:
 public:
-    Random rand;
     bool spielerZug(std::shared_ptr<Spieler> spieler);
     bool Schuss(std::shared_ptr<Spieler> gegener, int ireihe, int ispalte);
     void KIZug(std::shared_ptr<Spieler> gegener);
@@ -18,4 +16,5 @@ public:
     int koordinateZuIndex(char buchstabe);
     bool spielen(std::shared_ptr<Spieler> spielerSpielfeld, std::shared_ptr<Spieler> KISpielfeld, bool amZug);
 };
+
 #endif

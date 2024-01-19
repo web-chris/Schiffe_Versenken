@@ -6,7 +6,18 @@
 #include <fstream>
 #include "Spieler.hpp"
 #include "File.hpp"
-#include "CppRandom.hpp"
+
+enum Option
+{
+    MENU,
+    FORTSETZEN,
+    SPEICHERN,
+    NEUES_SPIEL,
+    LADEN,
+    EXIT,
+    CHEAT,
+    UNDEFINIERT
+};
 
 class Menu
 {
@@ -16,9 +27,8 @@ private:
     bool ersterAufruf;
 
 public:
-    Random rand;
     Menu();
-    int startMenu();
+    Option startMenu();
     void spielMenu(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> ki);
 };
 

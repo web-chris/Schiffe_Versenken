@@ -1,10 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <memory>
-#include "CppRandom.hpp"
 #include "Spiel.hpp"
 #include "Spieler.hpp"
 #include "Spielfeld.hpp"
+#include "Globals.hpp"
 
 bool Spiel::spielerZug(std::shared_ptr<Spieler> spieler)
 {
@@ -22,7 +22,7 @@ bool Spiel::spielerZug(std::shared_ptr<Spieler> spieler)
         {
             std::getline(std::cin, eingabe);
 
-            if (eingabe == "m" || eingabe == "menue" || eingabe == "MENUE" || eingabe == "exit" || eingabe == "EXIT")
+            if (eingabe == "m" || eingabe == "M" || eingabe == "menue" || eingabe == "MENUE" || eingabe == "exit" || eingabe == "EXIT")
             {
                 return false;
             }
@@ -92,6 +92,7 @@ bool Spiel::Schuss(std::shared_ptr<Spieler> gegener, int ireihe, int ispalte)
         case TREFFER:
         case VERSENKT:
         case VORBEI:
+
             return false;
         }
     }
@@ -173,8 +174,8 @@ void Spiel::KIZug(std::shared_ptr<Spieler> gegener)
                 {
                     break;
                 }
-                ireihe = rand.GetRandomNumberBetween(1, SPIELFELD_GROESSE) - 1;
-                ispalte = rand.GetRandomNumberBetween(1, SPIELFELD_GROESSE) - 1;
+                ireihe = globalRandom.GetRandomNumberBetween(1, SPIELFELD_GROESSE) - 1;
+                ispalte = globalRandom.GetRandomNumberBetween(1, SPIELFELD_GROESSE) - 1;
             }
 
             if (Schuss(gegener, ireihe, ispalte))
@@ -189,8 +190,8 @@ void Spiel::KIZug(std::shared_ptr<Spieler> gegener)
     }
     else
     {
-        ireihe = rand.GetRandomNumberBetween(1, SPIELFELD_GROESSE) - 1;
-        ispalte = rand.GetRandomNumberBetween(1, SPIELFELD_GROESSE) - 1;
+        ireihe = globalRandom.GetRandomNumberBetween(1, SPIELFELD_GROESSE) - 1;
+        ispalte = globalRandom.GetRandomNumberBetween(1, SPIELFELD_GROESSE) - 1;
         if (Schuss(gegener, ireihe, ispalte))
         {
             return;
@@ -413,5 +414,6 @@ bool Spiel::spielen(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> g
             amZug = true;
         }
     }
+
     return 0;
 }

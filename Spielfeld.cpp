@@ -1,7 +1,7 @@
 #include "Spielfeld.hpp"
 #include <vector>
 #include <iostream>
-#include "CppRandom.hpp"
+#include "Globals.hpp"
 
 SpielFeld Spielfeld::gibFeld()
 {
@@ -159,9 +159,9 @@ void Spielfeld::platziere_Schiffe(int schifflaenge, int anzahl)
         isInputValid = false;
         while (!isInputValid)
         {
-            schiffReihe = rand.GetRandomNumberBetween(1, SPIELFELD_GROESSE);
-            schiffSpalte = rand.GetRandomNumberBetween(1, SPIELFELD_GROESSE);
-            ausrichtung = rand.GetRandomNumberBetween(1, 2);
+            schiffReihe = globalRandom.GetRandomNumberBetween(1, SPIELFELD_GROESSE);
+            schiffSpalte = globalRandom.GetRandomNumberBetween(1, SPIELFELD_GROESSE);
+            ausrichtung = globalRandom.GetRandomNumberBetween(1, 2);
             if (ausrichtung == 2)
             {
                 vertikal = true;
@@ -170,6 +170,7 @@ void Spielfeld::platziere_Schiffe(int schifflaenge, int anzahl)
             {
                 vertikal = false;
             }
+
             if (schiffPlatzieren(schiffReihe - 1, schiffSpalte - 1, schifflaenge, vertikal))
             {
                 isInputValid = true;

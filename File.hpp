@@ -16,9 +16,10 @@ class File
 private:
 public:
     File();
-    std::string feldinstring(std::shared_ptr<Spieler> spieler);
-    void stirnginfeld(std::string feld, std::shared_ptr<Spieler> spieler);
-    int save_data(std::shared_ptr<Spieler> ki, std::shared_ptr<Spieler> spieler);
-    data_store load_data();
+    std::string feld_in_String_Umwandeln(std::shared_ptr<Spieler> spieler);
+    void string_in_Feld_Umwandeln(std::string feld, std::shared_ptr<Spieler> spieler);
+    int daten_speichern(std::shared_ptr<Spieler> ki, std::shared_ptr<Spieler> spieler);
+    data_store daten_laden();
 };
+
 #endif

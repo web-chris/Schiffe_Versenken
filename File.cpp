@@ -7,7 +7,7 @@
 File::File()
 {
 }
-std::string File::feldinstring(std::shared_ptr<Spieler> spieler)
+std::string File::feld_in_String_Umwandeln(std::shared_ptr<Spieler> spieler)
 {
     std::string zelle, stringfeld;
 
@@ -39,7 +39,7 @@ std::string File::feldinstring(std::shared_ptr<Spieler> spieler)
     return stringfeld;
 }
 
-void File::stirnginfeld(std::string feld, std::shared_ptr<Spieler> spieler)
+void File::string_in_Feld_Umwandeln(std::string feld, std::shared_ptr<Spieler> spieler)
 {
     int k = 0;
     for (int i = 0; i < SPIELFELD_GROESSE; ++i)
@@ -69,14 +69,14 @@ void File::stirnginfeld(std::string feld, std::shared_ptr<Spieler> spieler)
     }
 }
 
-int File::save_data(std::shared_ptr<Spieler> ki, std::shared_ptr<Spieler> spieler)
+int File::daten_speichern(std::shared_ptr<Spieler> ki, std::shared_ptr<Spieler> spieler)
 {
 
     std::string save, feld;
     data_store store;
 
-    store["Ki"] = feldinstring(ki);
-    store["Spieler"] = feldinstring(spieler);
+    store["Ki"] = feld_in_String_Umwandeln(ki);
+    store["Spieler"] = feld_in_String_Umwandeln(spieler);
 
     std::ofstream schreiben("save.txt");
 
@@ -100,7 +100,7 @@ int File::save_data(std::shared_ptr<Spieler> ki, std::shared_ptr<Spieler> spiele
     return 0;
 }
 
-data_store File::load_data()
+data_store File::daten_laden()
 {
     data_store store;
     std::ifstream laden("save.txt");

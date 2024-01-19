@@ -4,16 +4,15 @@
 #include <fstream>
 #include "Spieler.hpp"
 #include "File.hpp"
-#include "CppRandom.hpp"
 #include "Spiel.hpp"
-
+#include "Globals.hpp"
 Menu::Menu()
 {
     file = std::make_shared<File>();
     ersterAufruf = true;
 }
 
-int Menu::startMenu()
+Option Menu::startMenu()
 {
     bool isInputValid = false;
     std::string eingabe;
@@ -34,15 +33,16 @@ int Menu::startMenu()
     std::cout << "***********************************************\n";
     std::cout << "*      Willkommen bei Schiffe Versenken!      *\n";
     std::cout << "***********************************************\n";
-    std::cout << "*                (m)enue                      *\n";
+    std::cout << "*                [m] Menue                    *\n";
     if (!ersterAufruf)
     {
-        std::cout << "*                (f)ortsetzen                 *\n";
-        std::cout << "*                (s)peichern                  *\n";
+        std::cout << "*                [f] Fortsetzen               *\n";
+        std::cout << "*                [s] Speichern                *\n";
+        // std::cout << "*                [c] Cheaten                  *\n";
     }
-    std::cout << "*                (n)eues Spiel                *\n";
-    std::cout << "*                (l)aden                      *\n";
-    std::cout << "*                (e)xit                       *\n";
+    std::cout << "*                [n] Neues Spiel              *\n";
+    std::cout << "*                [l] Laden                    *\n";
+    std::cout << "*                [e] Exit                     *\n";
     std::cout << "***********************************************\n";
     std::cout << " " << std::endl;
 
@@ -53,7 +53,7 @@ int Menu::startMenu()
         std::cout << "Ihre Eingabe: ";
 
         std::getline(std::cin, eingabe);
-        if (ersterAufruf && (eingabe[0] == 's' || eingabe[0] == 'S' || eingabe[0] == 'f' || eingabe[0] == 'F' || eingabe[0] == 'c'))
+        if (ersterAufruf && (eingabe[0] == 's' || eingabe[0] == 'S' || eingabe[0] == 'f' || eingabe[0] == 'F' || eingabe[0] == 'c' || eingabe[0] == 'C'))
         {
             flag = false;
         }
@@ -62,21 +62,21 @@ int Menu::startMenu()
             flag = true;
         }
 
-        if (!std::cin.fail() && flag && (eingabe.length() == 1 || eingabe == "save" || eingabe == "SAVE" || eingabe == "exit" || eingabe == "EXIT" || eingabe == "load" || eingabe == "LOAD" || eingabe == "menue" || eingabe == "MENUE" || eingabe == "menü" || eingabe == "MENÜ" || eingabe == "cheat"))
+        if (!std::cin.fail() && flag && (eingabe.length() == 1 || eingabe == "save" || eingabe == "SAVE" || eingabe == "exit" || eingabe == "EXIT" || eingabe == "load" || eingabe == "LOAD" || eingabe == "menue" || eingabe == "MENUE" || eingabe == "menü" || eingabe == "MENÜ" || eingabe == "cheat" || eingabe == "CHEAT"))
         {
             switch (eingabe[0])
             {
             case 'e':
             case 'E':
-                return 0;
+                return Option::EXIT;
             case 'n':
             case 'N':
                 std::cout << "Spiel begint!" << std::endl;
                 ersterAufruf = false;
-                return 1;
+                return Option::NEUES_SPIEL;
             case 's':
             case 'S':
-                return 2;
+                return Option::SPEICHERN;
             case 'l':
             case 'L':
                 if (!filetest)
@@ -88,20 +88,21 @@ int Menu::startMenu()
                 {
                     std::cout << "Spiel wird geladen!" << std::endl;
                     ersterAufruf = false;
-                    return 3;
+                    return Option::LADEN;
                 }
 
             case 'f':
             case 'F':
                 std::cout << "Spiel wird fortgestzt!" << std::endl;
-                return 4;
+                return Option::FORTSETZEN;
             case 'm':
             case 'M':
                 return startMenu();
+
+            case 'C':
             case 'c':
                 std::cout << "\nEin Spion hat die Position der Feindlichen Flotte erspaeht!" << std::endl;
-                return 5;
-
+                return CHEAT;
             default:
 
                 std::cout << "Falsche Eingabe!" << std::endl;
@@ -112,7 +113,7 @@ int Menu::startMenu()
             std::cout << "Falsche Eingabe!" << std::endl;
         }
     }
-    return -1;
+    return Option::UNDEFINIERT;
 }
 
 void Menu::spielMenu(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> ki)
@@ -120,12 +121,12 @@ void Menu::spielMenu(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> 
     Spiel spiel;
 
     bool amZug;
-    int Zugbegin = rand.GetRandomNumberBetween(1, 2);
+    int Zugbegin = globalRandom.GetRandomNumberBetween(1, 2);
     switch (startMenu())
     {
-    case 0:
+    case Option::EXIT:
         return;
-    case 1: // Startet ein Neues Spiel
+    case Option::NEUES_SPIEL: // Startet ein Neues Spiel
         ki = std::make_shared<Spieler>(SpielerTyp::KI);
         spieler = std::make_shared<Spieler>(SpielerTyp::Spieler);
         std::cout << "Alle Schiffe Platziert!" << std::endl;
@@ -146,7 +147,7 @@ void Menu::spielMenu(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> 
         };
         break;
 
-    case 2: // Speichert das Spiel
+    case Option::SPEICHERN: // Speichert das Spiel
 
         if (spiel.alleSchiffeversenkt(ki) || spiel.alleSchiffeversenkt(spieler))
         {
@@ -156,24 +157,24 @@ void Menu::spielMenu(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> 
         else
         {
             std::cout << "Spiel wird gespeichert!" << std::endl;
-            file->save_data(ki, spieler);
+            file->daten_speichern(ki, spieler);
             spielMenu(spieler, ki);
         }
 
         break;
 
-    case 3: // Ladet ein Spiel
+    case Option::LADEN: // Ladet ein Spiel
         ki->spielFeldInit();
         spieler->spielFeldInit();
-        file->stirnginfeld(file->load_data()["Ki"], ki);
-        file->stirnginfeld(file->load_data()["Spieler"], spieler);
+        file->string_in_Feld_Umwandeln(file->daten_laden()["Ki"], ki);
+        file->string_in_Feld_Umwandeln(file->daten_laden()["Spieler"], spieler);
         amZug = true;
         if (spiel.spielen(spieler, ki, amZug))
         {
             spielMenu(spieler, ki);
         };
         break;
-    case 4: // Setzt das spiel fort
+    case Option::FORTSETZEN: // Setzt das spiel fort
 
         if (spiel.alleSchiffeversenkt(ki) || spiel.alleSchiffeversenkt(spieler))
         {
@@ -189,20 +190,12 @@ void Menu::spielMenu(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> 
             };
         }
         break;
-    case 5: // cheat
+
+    case CHEAT: // cheat
         ki->spielfeldAusgebe(true);
         spielMenu(spieler, ki);
 
     default:
         break;
     }
-}
-int main()
-{
-    Menu menu;
-    auto ki = std::make_shared<Spieler>(SpielerTyp::KI);
-    auto spieler = std::make_shared<Spieler>(SpielerTyp::Spieler);
-    menu.spielMenu(spieler, ki);
-    std::cout << "\nAuf Wiedersehen!\n"<< std::endl;
-    return 0;
 }
