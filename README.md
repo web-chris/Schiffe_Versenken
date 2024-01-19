@@ -30,7 +30,9 @@ n  : um ein Neues Spiel zu Starten
 
 l  : Ladet ein abgespeichertes Spiel (wird nur angezeigt wenn eine Speicherdatei vorhanden ist)
 
-e  : Beendet das spiel 
+e  : Beendet das spiel
+
+cheat : (ist nur möglich wenn bereits ein Spiel läuft!)
 ```
 
 ## Spiel Verlauf:
