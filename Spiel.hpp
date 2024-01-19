@@ -8,7 +8,7 @@ class Spiel
 private:
 public:
     bool spielerZug(std::shared_ptr<Spieler> spieler);
-// Umbenennen istSpielFeldVomGegenerGeschossen
+// Umbenennen istSpielFeldVomGegenerGeschossen oder hatKiGeschossen
     bool Schuss(std::shared_ptr<Spieler> gegener, int ireihe, int ispalte);
     void KIZug(std::shared_ptr<Spieler> gegener);
 // Umbenennen istSchiffVersenkt
