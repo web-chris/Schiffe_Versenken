@@ -124,7 +124,7 @@ Vector
 nullptr
 File Streams
 Konversion string zu int
-Access Specifiers ( private und public)
+Access Specifiers (private und public)
 Member intialiseren
 Objektinhalte
 Pointer auf Objekte (x->y, x.y)
