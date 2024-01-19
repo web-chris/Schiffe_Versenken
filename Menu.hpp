@@ -28,6 +28,7 @@ private:
 
 public:
     Menu();
+// Umbenennen gibOption
     Option startMenu();
     void spielMenu(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> ki);
 };
