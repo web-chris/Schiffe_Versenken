@@ -38,7 +38,7 @@ void Spieler::spieler_Schiffe_platzieren(bool platzierSchiffe)
         spieler_Schiffe_platzieren(5, 1, "Schlachtschiff"); // Schlachtschiff 1
         spieler_Schiffe_platzieren(4, 2, "Kreuzer");        // Kreuzer 2
         spieler_Schiffe_platzieren(3, 3, "Zerstoerer");     // Zerstörer 3
-        spieler_Schiffe_platzieren(2, 2, "U-Boote");        // U-Boote 4
+        spieler_Schiffe_platzieren(2, 4, "U-Boote");        // U-Boote 4
     }
 }
 
