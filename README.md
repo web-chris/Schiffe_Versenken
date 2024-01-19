@@ -4,7 +4,7 @@
 ## Spiel Menü:
 Nach dem Spielstart wird in der Konsole das Menü angezeigt,
 dabei können verschiedene Auswahlmöglichkeiten durch die Konsole angesteuert werden,
-um einen Punkt anzusteuern, muss der entsprechende Buchstabe in der zweieckigen Klammer eingegeben werden.
+um einen Punkt anzusteuern, muss der entsprechende Buchstabe in der eckigen Klammer eingegeben werden.
 ```
 ***********************************************
 *      Willkommen bei Schiffe Versenken!      *
