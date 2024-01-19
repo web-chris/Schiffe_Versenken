@@ -1,7 +1,7 @@
 #include "Menu.hpp"
 #include <memory>
 #include <iostream>
-#include <fstream> //Filestream-Support
+#include <fstream>
 #include "Spieler.hpp"
 #include "File.hpp"
 #include "CppRandom.hpp"
@@ -30,33 +30,22 @@ int Menu::startMenu()
     }
 
     FileTest.close();
-
-    std::cout << "**********************************************\n";
-    std::cout << "*          Willkommen bei Schiffe Versenken!  *\n";
-    std::cout << "**********************************************\n";
-    std::cout << "*                (1) Neues Spiel              *\n";
-    std::cout << "*                (2) Spiel laden              *\n";
-    std::cout << "*                (3) Anleitung                *\n";
-    std::cout << "*                (4) Beenden                  *\n";
-    std::cout << "**********************************************\n";
-
-    std::cout << "Willkommen bei Schiffe versenken!" << std::endl;
-    std::cout << "~~~Menue~~~" << std::endl;
     std::cout << " " << std::endl;
-    std::cout << "(m)enue (um in diese Menue zu gelangen)" << std::endl;
+    std::cout << "***********************************************\n";
+    std::cout << "*          Willkommen bei Schiffe Versenken!  *\n";
+    std::cout << "***********************************************\n";
+    std::cout << "*                (m)enue                      *\n";
     if (!ersterAufruf)
     {
-        std::cout << "(f)ortsetzen (setzt das Spiel fort)" << std::endl;
-        std::cout << "(s)peichern (speichert das Spiel!)" << std::endl;
+        std::cout << "*                (f)ortsetzen                 *\n";
+        std::cout << "*                (s)peichern                  *\n";
     }
-
-    std::cout << "(n)eues Spiel (um ein neues Spiel zu Starten)" << std::endl;
-    if (filetest)
-    {
-        std::cout << "(l)aden (um ein gespeichertes Spiel zu laden)" << std::endl;
-    }
-    std::cout << "(e)xit (um das Spiel zu Beenden)" << std::endl;
+    std::cout << "*                (n)eues Spiel                *\n";
+    std::cout << "*                (l)aden                      *\n";
+    std::cout << "*                (e)xit                       *\n";
+    std::cout << "***********************************************\n";
     std::cout << " " << std::endl;
+
     bool flag;
 
     while (!isInputValid)
@@ -64,11 +53,6 @@ int Menu::startMenu()
         std::cout << "Ihre Eingabe: ";
 
         std::getline(std::cin, eingabe);
-        if (!ersterAufruf)
-        {
-            std::cout << "TEst! ist False!!" << std::endl;
-        }
-
         if (ersterAufruf && (eingabe[0] == 's' || eingabe[0] == 'S' || eingabe[0] == 'f' || eingabe[0] == 'F'))
         {
             flag = false;
@@ -171,6 +155,7 @@ void Menu::spielMenu(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> 
         {
             std::cout << "Spiel wird gespeichert!" << std::endl;
             file->save_data(ki, spieler);
+            spielMenu(spieler, ki);
         }
 
         break;

@@ -1,4 +1,4 @@
-#include <fstream> //Filestream-Support
+#include <fstream>
 #include <iostream>
 #include "File.hpp"
 #include <memory>

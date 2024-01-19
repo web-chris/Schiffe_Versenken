@@ -170,7 +170,6 @@ void Spielfeld::platziere_Schiffe(int schifflaenge, int anzahl)
             {
                 vertikal = false;
             }
-            // std::cout << schiffReihe << std::endl;
             if (schiffPlatzieren(schiffReihe - 1, schiffSpalte - 1, schifflaenge, vertikal))
             {
                 isInputValid = true;

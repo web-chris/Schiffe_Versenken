@@ -17,7 +17,7 @@ bool Spiel::spielerZug(std::shared_ptr<Spieler> spieler)
     while (!isInputValid)
     {
         std::cin.clear();
-        std::cout << "Geben Sie die Zielkoordinaten ein (z. B. B3): ";
+        std::cout << "Geben Sie die Zielkoordinaten ein (z. B. B3) oder exit um ins Menue zu gelangen: ";
         try
         {
             std::getline(std::cin, eingabe);
@@ -29,7 +29,6 @@ bool Spiel::spielerZug(std::shared_ptr<Spieler> spieler)
             if (eingabe.length() == 2 || eingabe.length() == 3)
             {
                 // Reihe ermitteln und umwandeln
-                // reihe = eingabe[0];
                 ireihe = koordinateZuIndex(eingabe[0]);
                 // Spalte ermitteln und umwandeln
                 ispalte = std::stoi(eingabe.substr(1, eingabe.length() - 1)) - 1;
@@ -64,60 +63,16 @@ bool Spiel::spielerZug(std::shared_ptr<Spieler> spieler)
         case TREFFER:
         case VORBEI:
             std::cout << "Sie haben bereits dort geschossen. Versuchen Sie es erneut." << std::endl;
-            // spielerZug(spieler);
             return spielerZug(spieler);
         }
     }
     else
     {
         std::cout << "Ungueltige Koordinaten. Versuchen Sie es erneut." << std::endl;
-        // spielerZug(spieler);
         return spielerZug(spieler);
     }
     return true;
 }
-
-/*
-    // Spielzu der KI
-    void Spiel::KIZug(std::shared_ptr<Spieler> gegener){
-        int ispalte, ireihe;
-        CppRandom cr;
-        ireihe = cr.GetRandomNumberBetween(1, SPIELFELD_GROESSE);
-        ispalte = cr.GetRandomNumberBetween(1, SPIELFELD_GROESSE);
-
-        // da das Feld bei 0 anfängt 1 abziehen
-        ispalte = ispalte - 1;
-        ireihe = ireihe - 1;
-
-        if (istGueltigeKoordinate(ireihe, ispalte) && !std::cin.fail())
-        {
-            switch (gegener->gibZellenStatus(ireihe,ispalte))
-            {
-            case LEER:
-                std::cout << "Vorbei!" << std::endl;
-                gegener->setzeZellenStatus(ireihe, ispalte, VORBEI);
-                break;
-            case SCHIFF:
-                std::cout << "Treffer!" << std::endl;
-                gegener->setzeZellenStatus(ireihe, ispalte, TREFFER);
-                break;
-            case TREFFER:
-            case VERSENKT:
-            case VORBEI:
-                std::cout << "Sie haben bereits dort geschossen. Versuchen Sie es erneut." << std::endl;
-                KIZug(gegener);
-                return;
-            }
-        }
-        else
-        {
-            std::cout << "Ungueltige Koordinaten. Versuchen Sie es erneut." << std::endl;
-            KIZug(gegener);
-            return;
-        }
-
-    }
-*/
 
 bool Spiel::Schuss(std::shared_ptr<Spieler> gegener, int ireihe, int ispalte)
 {
@@ -137,16 +92,11 @@ bool Spiel::Schuss(std::shared_ptr<Spieler> gegener, int ireihe, int ispalte)
         case TREFFER:
         case VERSENKT:
         case VORBEI:
-            // std::cout << "Sie haben bereits dort geschossen. Versuchen Sie es erneut." << std::endl;
-            //  KIZug(gegener);
-
             return false;
         }
     }
     else
     {
-        // std::cout << "Ungueltige Koordinaten. Versuchen Sie es erneut." << std::endl;
-        //  KIZug(gegener);
         return false;
     }
     return true;
@@ -412,11 +362,11 @@ int Spiel::koordinateZuIndex(char buchstabe)
 
 bool Spiel::spielen(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> gegener, bool amZug)
 {
-    std::cout << "Auf in die Schlacht!" << std::endl;
-    std::cout << "Das Feindliche Feld" << std::endl;
+    std::cout << "\nAuf in die Schlacht!" << std::endl;
+    std::cout << "\nDas Feindliche Feld" << std::endl;
     gegener->spielfeldAusgebe(false);
 
-    std::cout << "Ihre Flotte!" << std::endl;
+    std::cout << "\nIhre Flotte!" << std::endl;
     spieler->spielfeldAusgebe(true);
 
     bool Spiel = true;
@@ -466,59 +416,3 @@ bool Spiel::spielen(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> g
 
     return 0;
 }
-
-/*
-int main(){
-    auto ki = std::make_shared<Spieler>(SpielerTyp::KI);
-    auto spieler = std::make_shared<Spieler>(SpielerTyp::Spieler);
-    std::cout << "Alle Schiffe Platziert!" << std::endl;
-    std::cout << "Auf in die Schlacht!" << std::endl;
-    Spiel spiel;
-
-    // Auslosen wer Spiel begint
-    int Zugbegin;
-    bool amZug;
-    bool Spiel = true;
-    CppRandom cr1;
-    Zugbegin = cr1. GetRandomNumberBetween(1, 2);
-    Zugbegin = 2;
-    if (Zugbegin == 2)
-    {
-        amZug = true;
-    }
-    else
-    {
-        amZug = false;
-    }
-
-    while (Spiel)
-    {
-        if (amZug)
-        {
-            std::cout << "Sie sind am Zug!" << std::endl;
-            spiel.spielerZug(ki);
-            ki->spielfeldAusgebe(false);
-            std::cout << "------------------------------" << std::endl;
-            amZug = false;
-        }else{
-            std::cout << "Der Feind ist am Zug!" << std::endl;
-            spiel.KIZug(spieler);
-            spiel.schiffversenkt(spieler);
-            spieler->spielfeldAusgebe(true);
-            std::cout << "------------------------------" << std::endl;
-            amZug = true;
-        }
-        if (spiel.alleSchiffeversenkt(ki)){
-            std::cout << "Glueckwunsch, Sie haben die Feindliche Flotte Besiegt!" << std::endl;
-            Spiel = false;
-        }
-
-        if (spiel.alleSchiffeversenkt(spieler)){
-            std::cout << "Schade, Sie wurden versenkt!" << std::endl;
-            Spiel = false;
-        }
-    }
-
-    return 0;
-}
-*/

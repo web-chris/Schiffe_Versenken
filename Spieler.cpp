@@ -8,26 +8,6 @@
 Spieler::Spieler(SpielerTyp pSpielerTyp) : spielerTyp(pSpielerTyp)
 {
     spielfeld = std::make_shared<Spielfeld>();
-    /*
-    if(spielerTyp == SpielerTyp::KI){
-        std::cout << " " << std::endl;
-        std::cout << "Spielfeld des KIs" << std::endl;
-        spielfeld->spielfeldInitialisieren();
-        ki_Schiffe_platzieren(5,1); // Schlachtschiff 1
-        ki_Schiffe_platzieren(4,2); // Kreuzer 2
-        ki_Schiffe_platzieren(3,3); // Zerstörer 3
-        ki_Schiffe_platzieren(2,1); // U-Boote 4
-        spielfeldAusgebe(true);
-    }else if(spielerTyp == SpielerTyp::Spieler){
-        std::cout << " " << std::endl;
-        std::cout << "Spielfeld des Spielers" << std::endl;
-        spielfeld->spielfeldInitialisieren();
-        spielfeldAusgebe(true);
-        spieler_Schiffe_platzieren(5,1, "Schlachtschiff"); // Schlachtschiff 1
-        //spieler_Schiffe_platzieren(4,2, "Kreuzer"); // Kreuzer 2
-        //spieler_Schiffe_platzieren(3,3, "Zerstoerer"); // Zerstörer 3
-        //spieler_Schiffe_platzieren(2,2, "U-Boote"); // U-Boote 4
-    } */
 }
 void Spieler::spielFeldInit()
 {
@@ -38,13 +18,13 @@ void Spieler::ki_Schiffe_platzierbereit(bool platzierSchiffe)
     if (platzierSchiffe)
     {
         std::cout << " " << std::endl;
-        std::cout << "Spielfeld des KIs" << std::endl;
+        std::cout << "Spielfeld des Gegners" << std::endl;
         spielFeldInit();
         ki_Schiffe_platzieren(5, 1); // Schlachtschiff 1
-        // ki_Schiffe_platzieren(4,2); // Kreuzer 2
-        // ki_Schiffe_platzieren(3,3); // Zerstörer 3
-        // ki_Schiffe_platzieren(2,1); // U-Boote 4
-        spielfeldAusgebe(true); // Sichtbar!
+        ki_Schiffe_platzieren(4, 2); // Kreuzer 2
+        ki_Schiffe_platzieren(3, 3); // Zerstörer 3
+        ki_Schiffe_platzieren(2, 4); // U-Boote 4
+        spielfeldAusgebe(true);      // Sichtbar!
     }
 }
 void Spieler::spieler_Schiffe_platzieren(bool platzierSchiffe)
@@ -56,9 +36,9 @@ void Spieler::spieler_Schiffe_platzieren(bool platzierSchiffe)
         spielFeldInit();
         spielfeldAusgebe(true);
         spieler_Schiffe_platzieren(5, 1, "Schlachtschiff"); // Schlachtschiff 1
-        // spieler_Schiffe_platzieren(4,2, "Kreuzer"); // Kreuzer 2
-        // spieler_Schiffe_platzieren(3,3, "Zerstoerer"); // Zerstörer 3
-        // spieler_Schiffe_platzieren(2,2, "U-Boote"); // U-Boote 4
+        spieler_Schiffe_platzieren(4, 2, "Kreuzer");        // Kreuzer 2
+        spieler_Schiffe_platzieren(3, 3, "Zerstoerer");     // Zerstörer 3
+        spieler_Schiffe_platzieren(2, 4, "U-Boote");        // U-Boote 4
     }
 }
 
@@ -172,7 +152,7 @@ void Spieler::spieler_Schiffe_platzieren(int schiffLeange, int anzahl, std::stri
         bool isInputValid = false;
         while (!isInputValid)
         {
-            std::cout << "Es gibt insgesamt " << anzahl << " " << typ << ". Platzieren Sie Ihren " << i + 1 << ". (Kaestchen " << schiffLeange << "): ";
+            std::cout << "Es gibt insgesamt " << anzahl << " " << typ << ". Platzieren Sie Ihr " << i + 1 << ". (Kaestchen " << schiffLeange << "): ";
             std::string eingabe;
             std::getline(std::cin, eingabe);
 
@@ -207,7 +187,6 @@ void Spieler::ki_Schiffe_platzieren(int schifflaenge, int anzahl)
             {
                 vertikal = false;
             }
-            // std::cout << schiffReihe << std::endl;
             if (spielfeld->schiffPlatzieren(schiffReihe - 1, schiffSpalte - 1, schifflaenge, vertikal))
             {
                 isInputValid = true;

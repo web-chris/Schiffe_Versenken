@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <iostream>
-#include <fstream> //Filestream-Support
+#include <fstream>
 #include "Spieler.hpp"
 #include "File.hpp"
 #include "CppRandom.hpp"
