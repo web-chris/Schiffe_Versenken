@@ -41,7 +41,11 @@ Option Menu::startMenu()
         std::cout << "*                [c] Cheaten                  *\n";
     }
     std::cout << "*                [n] Neues Spiel              *\n";
-    std::cout << "*                [l] Laden                    *\n";
+    if (filetest)
+    {
+
+        std::cout << "*                [l] Laden                    *\n";
+    }
     std::cout << "*                [e] Exit                     *\n";
     std::cout << "***********************************************\n";
     std::cout << " " << std::endl;
