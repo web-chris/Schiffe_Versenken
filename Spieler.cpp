@@ -24,7 +24,7 @@ void Spieler::ki_Schiffe_platzierbereit(bool platzierSchiffe)
         ki_Schiffe_platzieren(4, 2); // Kreuzer 2
         ki_Schiffe_platzieren(3, 3); // Zerstörer 3
         ki_Schiffe_platzieren(2, 4); // U-Boote 4
-        spielfeldAusgebe(true);      // Sichtbar!
+        spielfeldAusgebe(false);      // Sichtbar!
     }
 }
 void Spieler::spieler_Schiffe_platzieren(bool platzierSchiffe)

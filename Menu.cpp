@@ -53,7 +53,7 @@ int Menu::startMenu()
         std::cout << "Ihre Eingabe: ";
 
         std::getline(std::cin, eingabe);
-        if (ersterAufruf && (eingabe[0] == 's' || eingabe[0] == 'S' || eingabe[0] == 'f' || eingabe[0] == 'F'))
+        if (ersterAufruf && (eingabe[0] == 's' || eingabe[0] == 'S' || eingabe[0] == 'f' || eingabe[0] == 'F' || eingabe[0] == 'c'))
         {
             flag = false;
         }
@@ -62,7 +62,7 @@ int Menu::startMenu()
             flag = true;
         }
 
-        if (!std::cin.fail() && flag && (eingabe.length() == 1 || eingabe == "save" || eingabe == "SAVE" || eingabe == "exit" || eingabe == "EXIT" || eingabe == "load" || eingabe == "LOAD" || eingabe == "menue" || eingabe == "MENUE" || eingabe == "menü" || eingabe == "MENÜ"))
+        if (!std::cin.fail() && flag && (eingabe.length() == 1 || eingabe == "save" || eingabe == "SAVE" || eingabe == "exit" || eingabe == "EXIT" || eingabe == "load" || eingabe == "LOAD" || eingabe == "menue" || eingabe == "MENUE" || eingabe == "menü" || eingabe == "MENÜ" || eingabe == "cheat"))
         {
             switch (eingabe[0])
             {
@@ -99,6 +99,9 @@ int Menu::startMenu()
             case 'm':
             case 'M':
                 return startMenu();
+            case 'c':
+                std::cout << "\nEin Spion hat die Position der Feindlichen Flotte erspaeht" << std::endl;
+                return 5;
 
             default:
 
@@ -187,6 +190,9 @@ void Menu::spielMenu(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> 
             };
         }
         break;
+    case 5: // cheat
+        ki->spielfeldAusgebe(true);
+        spielMenu(spieler, ki);
 
     default:
         break;
