@@ -392,7 +392,7 @@ bool Spiel::spielen(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> g
         }
         if (amZug)
         {
-            std::cout << "Sie sind am Zug!" << std::endl;
+            std::cout << "\nSie sind am Zug!" << std::endl;
 
             if (!spielerZug(gegener))
             {
@@ -405,7 +405,7 @@ bool Spiel::spielen(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> g
         }
         else
         {
-            std::cout << "Der Feind ist am Zug!" << std::endl;
+            std::cout << "\nDer Feind ist am Zug!" << std::endl;
             KIZug(spieler);
             schiffversenkt(spieler);
             spieler->spielfeldAusgebe(true);
