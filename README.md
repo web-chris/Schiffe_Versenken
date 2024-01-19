@@ -33,7 +33,7 @@ l  : Ladet ein abgespeichertes Spiel (wird nur angezeigt wenn eine Speicherdatei
 
 e  : Beendet das spiel
 
-cheat : (ist nur möglich wenn bereits ein Spiel läuft!)
+c  : cheat (ist nur möglich wenn bereits ein Spiel läuft!)
 ```
 
 ## Spiel Verlauf:
