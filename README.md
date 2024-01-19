@@ -80,7 +80,7 @@ J  ~  ~  ~  ~  ~  ~  ~  ~  ~  ~
 
 ```
 Nachdem die Schiffe platziert wurden, wird ausgelost ob der Spieler oder der Computer Gegner anfangen darf.
-Wenn der Spieler am Zug ist kann er z.b. `A1` seinen Schuss abfeuern oder mit dem Befehl `exit` oder `menue` wieder ins Menü zurückkehren.
+Wenn der Spieler am Zug ist kann er z.b. `A1` seinen Schuss abfeuern oder mit dem Befehl `exit` oder `menue` oder `m` wieder ins Menü zurückkehren.
 
 ### Legende: 
 ```
