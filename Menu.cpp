@@ -32,7 +32,7 @@ int Menu::startMenu()
     FileTest.close();
     std::cout << " " << std::endl;
     std::cout << "***********************************************\n";
-    std::cout << "*          Willkommen bei Schiffe Versenken!  *\n";
+    std::cout << "*      Willkommen bei Schiffe Versenken!      *\n";
     std::cout << "***********************************************\n";
     std::cout << "*                (m)enue                      *\n";
     if (!ersterAufruf)
