@@ -117,7 +117,6 @@ Konstruktoren
 Header (hpp)
 Source (cpp)
 Smart-Pointer
-Lambda 
 Zufallszahlen
 typedef
 Vector
