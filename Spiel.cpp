@@ -22,7 +22,7 @@ bool Spiel::spielerZug(std::shared_ptr<Spieler> spieler)
         {
             std::getline(std::cin, eingabe);
 
-            if (eingabe == "menue" || eingabe == "MENUE" || eingabe == "exit" || eingabe == "EXIT")
+            if (eingabe == "m" || eingabe == "menue" || eingabe == "MENUE" || eingabe == "exit" || eingabe == "EXIT")
             {
                 return false;
             }
