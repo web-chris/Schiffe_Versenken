@@ -27,13 +27,13 @@ f  : um ein Laufendes Spiel fortzusetzen (wird nur angezeigt wenn bereist ein Sp
 
 s  : um ein Laufendes Spiel zu speichern (wird nur angezeigt wenn bereist ein Spiel läuft!)
 
+c  : cheat (ist nur möglich wenn bereits ein Spiel läuft!)
+
 n  : um ein Neues Spiel zu Starten
 
 l  : Ladet ein abgespeichertes Spiel (wird nur angezeigt wenn eine Speicherdatei vorhanden ist)
 
 e  : Beendet das spiel
-
-c  : cheat (ist nur möglich wenn bereits ein Spiel läuft!)
 ```
 
 ## Spiel Verlauf:
