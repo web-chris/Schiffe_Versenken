@@ -3,8 +3,8 @@
 
 ## Spiel Menü:
 Nach dem Spielstart wird in der Konsole das Menü angezeigt,
-dabei können verschiedene Auswahl Möglichkeiten durch die Konsole angesteuert werden,
-um einen Punkt anzusteuern muss der entsprechende Buchstabe in der Klammer eingegeben werden.
+dabei können verschiedene Auswahlmöglichkeiten durch die Konsole angesteuert werden,
+um einen Punkt anzusteuern, muss der entsprechende Buchstabe in der zweieckigen Klammer eingegeben werden.
 ```
 ***********************************************
 *      Willkommen bei Schiffe Versenken!      *
@@ -37,7 +37,7 @@ cheat : (ist nur möglich wenn bereits ein Spiel läuft!)
 ```
 
 ## Spiel Verlauf:
-Nach dem ein neues Spiel gestartet wurde,
+Nachdem ein neues Spiel gestartet wurde,
 wird der Spieler aufgefordert seine Schiffe zu platzieren.
 Dabei muss er die Start Koordinaten und die Ausrichtung des Schiffs angeben. 
 ```
