@@ -9,12 +9,13 @@ um einen Punkt anzusteuern muss der entsprechende Buchstabe in der Klammer einge
 ***********************************************
 *      Willkommen bei Schiffe Versenken!      *
 ***********************************************
-*                (m)enue                      *
-*                (f)ortsetzen                 *
-*                (s)peichern                  *
-*                (n)eues Spiel                *
-*                (l)aden                      *
-*                (e)xit                       *
+*                [m] Menue                    *
+*                [f] Fortsetzen               *
+*                [s] Speichern                *
+*                [c] Cheaten                  *
+*                [n] Neues Spiel              *
+*                [l] Laden                    *
+*                [e] Exit                     *
 ***********************************************
 ```
 #### Menü Erklärung: 
