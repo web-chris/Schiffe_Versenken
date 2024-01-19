@@ -68,7 +68,6 @@ int Menu::startMenu()
             {
             case 'e':
             case 'E':
-                std::cout << "Auf Wiedersehen!" << std::endl;
                 return 0;
             case 'n':
             case 'N':
@@ -204,6 +203,6 @@ int main()
     auto ki = std::make_shared<Spieler>(SpielerTyp::KI);
     auto spieler = std::make_shared<Spieler>(SpielerTyp::Spieler);
     menu.spielMenu(spieler, ki);
-
+    std::cout << "\nAuf Wiedersehen!\n"<< std::endl;
     return 0;
 }

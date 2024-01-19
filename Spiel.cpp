@@ -375,7 +375,7 @@ bool Spiel::spielen(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> g
 
         if (alleSchiffeversenkt(gegener))
         {
-            std::cout << "Glueckwunsch, Sie haben die Feindliche Flotte Besiegt!" << std::endl;
+            std::cout << "\nGlueckwunsch, Sie haben die Feindliche Flotte Besiegt!" << std::endl;
             Spiel = false;
             gegener->spielfeldAusgebe(true);
             std::cout << "------------------------------" << std::endl;
@@ -384,7 +384,7 @@ bool Spiel::spielen(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> g
 
         if (alleSchiffeversenkt(spieler))
         {
-            std::cout << "Schade, Sie wurden versenkt!" << std::endl;
+            std::cout << "\nSchade, Sie wurden versenkt!" << std::endl;
             Spiel = false;
             spieler->spielfeldAusgebe(true);
             std::cout << "------------------------------" << std::endl;
