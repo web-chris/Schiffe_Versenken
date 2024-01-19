@@ -13,7 +13,7 @@ int main()
     Menu menu;
     // hier wird das Menü für den menschlichen Spieler angezeigt
     // und somit kann der Spieler eine der möglichen Optionen auswählen, um das Spiel beispielsweise zu starten
-    menu.spielMenu(spieler, ki);
+    menu.gibOption(spieler, ki);
     std::cout << "\nAuf Wiedersehen!\n"<< std::endl;
 
     return 0;

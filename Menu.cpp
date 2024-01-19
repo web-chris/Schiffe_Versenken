@@ -12,7 +12,7 @@ Menu::Menu()
     ersterAufruf = true;
 }
 
-Option Menu::startMenu()
+Option Menu::gibOption()
 {
     bool isInputValid = false;
     std::string eingabe;
@@ -101,7 +101,7 @@ Option Menu::startMenu()
                 return Option::FORTSETZEN;
             case 'm':
             case 'M':
-                return startMenu();
+                return gibOption();
 
             case 'C':
             case 'c':
@@ -120,13 +120,13 @@ Option Menu::startMenu()
     return Option::UNDEFINIERT;
 }
 
-void Menu::spielMenu(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> ki)
+void Menu::gibOption(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> ki)
 {
     Spiel spiel;
 
     bool amZug;
     int Zugbegin = globalRandom.GetRandomNumberBetween(1, 2);
-    switch (startMenu())
+    switch (gibOption())
     {
     case Option::EXIT:
         return;
@@ -134,8 +134,8 @@ void Menu::spielMenu(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> 
         ki = std::make_shared<Spieler>(SpielerTyp::KI);
         spieler = std::make_shared<Spieler>(SpielerTyp::Spieler);
         std::cout << "Alle Schiffe Platziert!" << std::endl;
-        ki->ki_Schiffe_platzierbereit(true);
-        spieler->spieler_Schiffe_platzieren(true);
+        ki->initSchiffePlatzierungVonKI(true);
+        spieler->initSchiffePlatzierungVonSpieler(true);
 
         if (Zugbegin == 2)
         {
@@ -147,22 +147,22 @@ void Menu::spielMenu(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> 
         }
         if (spiel.spielen(spieler, ki, amZug))
         {
-            spielMenu(spieler, ki);
+            gibOption(spieler, ki);
         };
         break;
 
     case Option::SPEICHERN: // Speichert das Spiel
 
-        if (spiel.alleSchiffeversenkt(ki) || spiel.alleSchiffeversenkt(spieler))
+        if (spiel.sindAlleSchiffeVersenkt(ki) || spiel.sindAlleSchiffeVersenkt(spieler))
         {
             std::cout << "Kein Spiel zum Speichern!" << std::endl;
-            spielMenu(spieler, ki);
+            gibOption(spieler, ki);
         }
         else
         {
             std::cout << "Spiel wird gespeichert!" << std::endl;
             file->daten_speichern(ki, spieler);
-            spielMenu(spieler, ki);
+            gibOption(spieler, ki);
         }
 
         break;
@@ -175,29 +175,29 @@ void Menu::spielMenu(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> 
         amZug = true;
         if (spiel.spielen(spieler, ki, amZug))
         {
-            spielMenu(spieler, ki);
+            gibOption(spieler, ki);
         };
         break;
     case Option::FORTSETZEN: // Setzt das spiel fort
 
-        if (spiel.alleSchiffeversenkt(ki) || spiel.alleSchiffeversenkt(spieler))
+        if (spiel.sindAlleSchiffeVersenkt(ki) || spiel.sindAlleSchiffeVersenkt(spieler))
         {
             std::cout << "Kein Spiel zum Fortsetzen!" << std::endl;
-            spielMenu(spieler, ki);
+            gibOption(spieler, ki);
         }
         else
         {
             amZug = true;
             if (spiel.spielen(spieler, ki, amZug))
             {
-                spielMenu(spieler, ki);
+                gibOption(spieler, ki);
             };
         }
         break;
 
     case CHEAT: // cheat
-        ki->spielfeldAusgebe(true);
-        spielMenu(spieler, ki);
+        ki->spielfeldAusgeben(true);
+        gibOption(spieler, ki);
 
     default:
         break;

@@ -11,34 +11,34 @@ Spieler::Spieler(SpielerTyp pSpielerTyp) : spielerTyp(pSpielerTyp)
 }
 void Spieler::spielFeldInit()
 {
-    spielfeld->spielfeldInitialisieren();
+    spielfeld->initSpielfeld();
 }
-void Spieler::ki_Schiffe_platzierbereit(bool platzierSchiffe)
+void Spieler::initSchiffePlatzierungVonKI(bool platzierSchiffe)
 {
     if (platzierSchiffe)
     {
         std::cout << " " << std::endl;
         std::cout << "Spielfeld des Gengners" << std::endl;
         spielFeldInit();
-        ki_Schiffe_platzieren(5, 1); // Schlachtschiff 1
-        ki_Schiffe_platzieren(4, 2); // Kreuzer 2
-        ki_Schiffe_platzieren(3, 3); // Zerstörer 3
-        ki_Schiffe_platzieren(2, 4); // U-Boote 4
-        spielfeldAusgebe(false);     // Schiffe ausgeblendet!
+        schiffePlatzierungVonKI(5, 1); // Schlachtschiff 1
+        schiffePlatzierungVonKI(4, 2); // Kreuzer 2
+        schiffePlatzierungVonKI(3, 3); // Zerstörer 3
+        schiffePlatzierungVonKI(2, 4); // U-Boote 4
+        spielfeldAusgeben(false);      // Schiffe ausgeblendet!
     }
 }
-void Spieler::spieler_Schiffe_platzieren(bool platzierSchiffe)
+void Spieler::initSchiffePlatzierungVonSpieler(bool platzierSchiffe)
 {
     if (platzierSchiffe)
     {
         std::cout << " " << std::endl;
         std::cout << "Spielfeld des Spielers" << std::endl;
         spielFeldInit();
-        spielfeldAusgebe(true);                             // Schiffe sichtbar!
-        spieler_Schiffe_platzieren(5, 1, "Schlachtschiff"); // Schlachtschiff 1
-        spieler_Schiffe_platzieren(4, 2, "Kreuzer");        // Kreuzer 2
-        spieler_Schiffe_platzieren(3, 3, "Zerstoerer");     // Zerstörer 3
-        spieler_Schiffe_platzieren(2, 4, "U-Boote");        // U-Boote 4
+        spielfeldAusgeben(true);                                       // Schiffe sichtbar!
+        istSchiffePlatzierenVonSpielerGueltig(5, 1, "Schlachtschiff"); // Schlachtschiff 1
+        istSchiffePlatzierenVonSpielerGueltig(4, 2, "Kreuzer");        // Kreuzer 2
+        istSchiffePlatzierenVonSpielerGueltig(3, 3, "Zerstoerer");     // Zerstörer 3
+        istSchiffePlatzierenVonSpielerGueltig(2, 4, "U-Boote");        // U-Boote 4
     }
 }
 
@@ -55,12 +55,12 @@ SpielFeld Spieler::gibFeld()
 {
     return spielfeld->gibFeld();
 }
-void Spieler::spielfeldAusgebe(bool schiffAnzeige)
+void Spieler::spielfeldAusgeben(bool schiffAnzeige)
 {
-    spielfeld->spielfeldAusgebe(schiffAnzeige);
+    spielfeld->spielfeldAusgeben(schiffAnzeige);
 }
 
-bool Spieler::pruefeZellen(int ireihe, int ispalte, ZellenStatus zellenStatus)
+bool Spieler::vergleicheZelle(int ireihe, int ispalte, ZellenStatus zellenStatus)
 {
     if (spielfeld->gibZellenStatus(ireihe, ispalte) == zellenStatus)
     {
@@ -72,7 +72,7 @@ bool Spieler::pruefeZellen(int ireihe, int ispalte, ZellenStatus zellenStatus)
     }
 }
 
-bool Spieler::pruefenPlatzieren(std::string eingabe, int schiffGroesse)
+bool Spieler::istSchiffePlatzierenVonSpielerGueltig(std::string eingabe, int schiffGroesse)
 { // gehört zur Spieler-Definition
     char ausrichtung, reihe;
     bool vertikal;
@@ -86,7 +86,7 @@ bool Spieler::pruefenPlatzieren(std::string eingabe, int schiffGroesse)
         {
             // Reihe ermitteln und umwandeln
             reihe = eingabe[0];
-            ireihe = koordinateZuIndex(reihe);
+            ireihe = KoordinatenInIndexUmwandeln(reihe);
 
             // Spalte ermitteln und umwandeln
             ispalte = std::stoi(eingabe.substr(1, eingabe.length() - 2));
@@ -112,7 +112,7 @@ bool Spieler::pruefenPlatzieren(std::string eingabe, int schiffGroesse)
             }
 
             // Prüft ob die Koordinate im Spielfeld liegt
-            if (!istGueltigeKoordinate(ireihe, ispalte - 1))
+            if (!istKoordinateGueltig(ireihe, ispalte - 1))
             {
                 std::cout << FehlerText << std::endl;
                 return false;
@@ -125,9 +125,9 @@ bool Spieler::pruefenPlatzieren(std::string eingabe, int schiffGroesse)
         }
 
         // Platziert die Schiffe im Feld wenn möglich
-        if (spielfeld->schiffPlatzieren(ireihe, ispalte - 1, schiffGroesse, vertikal))
+        if (spielfeld->pruefeSchiffPlatzieren(ireihe, ispalte - 1, schiffGroesse, vertikal))
         {
-            spielfeldAusgebe(true);
+            spielfeldAusgeben(true);
             return true;
         }
         else
@@ -144,7 +144,7 @@ bool Spieler::pruefenPlatzieren(std::string eingabe, int schiffGroesse)
     }
 }
 
-void Spieler::spieler_Schiffe_platzieren(int schiffLeange, int anzahl, std::string typ)
+void Spieler::istSchiffePlatzierenVonSpielerGueltig(int schiffLeange, int anzahl, std::string typ)
 { // gehört zur Spieler-Definition
 
     for (int i = 0; i < anzahl; ++i)
@@ -156,7 +156,7 @@ void Spieler::spieler_Schiffe_platzieren(int schiffLeange, int anzahl, std::stri
             std::string eingabe;
             std::getline(std::cin, eingabe);
 
-            if (pruefenPlatzieren(eingabe, schiffLeange))
+            if (istSchiffePlatzierenVonSpielerGueltig(eingabe, schiffLeange))
             {
                 isInputValid = true;
             }
@@ -165,7 +165,7 @@ void Spieler::spieler_Schiffe_platzieren(int schiffLeange, int anzahl, std::stri
     }
 }
 
-void Spieler::ki_Schiffe_platzieren(int schifflaenge, int anzahl)
+void Spieler::schiffePlatzierungVonKI(int schifflaenge, int anzahl)
 {
     int schiffSpalte, schiffReihe, ausrichtung;
     bool vertikal;
@@ -188,7 +188,7 @@ void Spieler::ki_Schiffe_platzieren(int schifflaenge, int anzahl)
                 vertikal = false;
             }
 
-            if (spielfeld->schiffPlatzieren(schiffReihe - 1, schiffSpalte - 1, schifflaenge, vertikal))
+            if (spielfeld->pruefeSchiffPlatzieren(schiffReihe - 1, schiffSpalte - 1, schifflaenge, vertikal))
             {
                 isInputValid = true;
             }
@@ -200,12 +200,12 @@ void Spieler::ki_Schiffe_platzieren(int schifflaenge, int anzahl)
     }
 }
 
-bool Spieler::istGueltigeKoordinate(int reihe, int spalte)
+bool Spieler::istKoordinateGueltig(int reihe, int spalte)
 {
     return reihe >= 0 && reihe < SPIELFELD_GROESSE && spalte >= 0 && spalte < SPIELFELD_GROESSE;
 }
 // Wandelt Buchstaben in Zahlen um
-int Spieler::koordinateZuIndex(char buchstabe)
+int Spieler::KoordinatenInIndexUmwandeln(char buchstabe)
 {
     return std::toupper(buchstabe) - 'A';
 }

@@ -13,7 +13,7 @@ void Spielfeld::setzeZellenStatus(int ireihe, int ispalte, ZellenStatus zellenSt
     spielfeld[ireihe][ispalte] = zellenStatus;
 }
 
-bool Spielfeld::pruefeZellen(int ireihe, int ispalte, ZellenStatus zellenStatus)
+bool Spielfeld::vergleicheZelle(int ireihe, int ispalte, ZellenStatus zellenStatus)
 {
     if (spielfeld[ireihe][ispalte] == zellenStatus)
     {
@@ -30,7 +30,7 @@ ZellenStatus Spielfeld::gibZellenStatus(int ireihe, int ispalte)
     return spielfeld[ireihe][ispalte];
 }
 
-void Spielfeld::spielfeldInitialisieren()
+void Spielfeld::initSpielfeld()
 {
     for (int i = 0; i < SPIELFELD_GROESSE; ++i)
     {
@@ -39,7 +39,7 @@ void Spielfeld::spielfeldInitialisieren()
     }
 }
 
-void Spielfeld::spielfeldAusgebe(bool schiffAnzeige)
+void Spielfeld::spielfeldAusgeben(bool schiffAnzeige)
 {
     std::cout << "   1  2  3  4  5  6  7  8  9  10" << std::endl;
     for (int i = 0; i < SPIELFELD_GROESSE; ++i)
@@ -122,7 +122,7 @@ bool Spielfeld::istPlatzierungGueltig(int reihe, int spalte, int groesse, bool v
     }
     return true;
 }
-bool Spielfeld::schiffPlatzieren(int reihe, int spalte, int groesse, bool vertikal)
+bool Spielfeld::pruefeSchiffPlatzieren(int reihe, int spalte, int groesse, bool vertikal)
 {
     if (istPlatzierungGueltig(reihe, spalte, groesse, vertikal))
     {
@@ -149,7 +149,7 @@ bool Spielfeld::schiffPlatzieren(int reihe, int spalte, int groesse, bool vertik
     }
 }
 
-void Spielfeld::platziere_Schiffe(int schifflaenge, int anzahl)
+void Spielfeld::SchiffPlatzieren(int schifflaenge, int anzahl)
 {
     int schiffSpalte, schiffReihe, ausrichtung;
     bool vertikal;
@@ -171,7 +171,7 @@ void Spielfeld::platziere_Schiffe(int schifflaenge, int anzahl)
                 vertikal = false;
             }
 
-            if (schiffPlatzieren(schiffReihe - 1, schiffSpalte - 1, schifflaenge, vertikal))
+            if (pruefeSchiffPlatzieren(schiffReihe - 1, schiffSpalte - 1, schifflaenge, vertikal))
             {
                 isInputValid = true;
             }

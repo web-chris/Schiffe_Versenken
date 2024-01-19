@@ -29,7 +29,7 @@ bool Spiel::spielerZug(std::shared_ptr<Spieler> spieler)
             if (eingabe.length() == 2 || eingabe.length() == 3)
             {
                 // Reihe ermitteln und umwandeln
-                ireihe = koordinateZuIndex(eingabe[0]);
+                ireihe = KoordinatenInIndexUmwandeln(eingabe[0]);
                 // Spalte ermitteln und umwandeln
                 ispalte = std::stoi(eingabe.substr(1, eingabe.length() - 1)) - 1;
                 isInputValid = true;
@@ -46,7 +46,7 @@ bool Spiel::spielerZug(std::shared_ptr<Spieler> spieler)
             isInputValid = false;
         }
     }
-    if (istGueltigeKoordinate(ireihe, ispalte) && !std::cin.fail())
+    if (istKoordinateGueltig(ireihe, ispalte) && !std::cin.fail())
     {
 
         switch (spieler->gibZellenStatus(ireihe, ispalte))
@@ -58,7 +58,7 @@ bool Spiel::spielerZug(std::shared_ptr<Spieler> spieler)
         case SCHIFF:
             std::cout << "Treffer!" << std::endl;
             spieler->setzeZellenStatus(ireihe, ispalte, TREFFER);
-            schiffversenkt(spieler);
+            istSchiffVersenkt(spieler);
             break;
         case TREFFER:
         case VORBEI:
@@ -74,10 +74,10 @@ bool Spiel::spielerZug(std::shared_ptr<Spieler> spieler)
     return true;
 }
 
-bool Spiel::Schuss(std::shared_ptr<Spieler> gegener, int ireihe, int ispalte)
+bool Spiel::hatKiGeschossen(std::shared_ptr<Spieler> gegener, int ireihe, int ispalte)
 {
 
-    if (istGueltigeKoordinate(ireihe, ispalte) && !std::cin.fail())
+    if (istKoordinateGueltig(ireihe, ispalte) && !std::cin.fail())
     {
         switch (gegener->gibZellenStatus(ireihe, ispalte))
         {
@@ -140,7 +140,7 @@ void Spiel::KIZug(std::shared_ptr<Spieler> gegener)
                 iFeld = 1;
                 --ireihe;
 
-                if (istGueltigeKoordinate(ireihe, ispalte) && gegener->gibZellenStatus(ireihe, ispalte) != VORBEI)
+                if (istKoordinateGueltig(ireihe, ispalte) && gegener->gibZellenStatus(ireihe, ispalte) != VORBEI)
                 {
                     break;
                 }
@@ -151,7 +151,7 @@ void Spiel::KIZug(std::shared_ptr<Spieler> gegener)
                 iFeld = 2;
                 --ispalte;
 
-                if (istGueltigeKoordinate(ireihe, ispalte) && gegener->gibZellenStatus(ireihe, ispalte) != VORBEI)
+                if (istKoordinateGueltig(ireihe, ispalte) && gegener->gibZellenStatus(ireihe, ispalte) != VORBEI)
                 {
                     break;
                 }
@@ -161,7 +161,7 @@ void Spiel::KIZug(std::shared_ptr<Spieler> gegener)
                 iFeld = 3;
                 ++ireihe;
 
-                if (istGueltigeKoordinate(ireihe, ispalte) && gegener->gibZellenStatus(ireihe, ispalte) != VORBEI)
+                if (istKoordinateGueltig(ireihe, ispalte) && gegener->gibZellenStatus(ireihe, ispalte) != VORBEI)
                 {
                     break;
                 }
@@ -170,7 +170,7 @@ void Spiel::KIZug(std::shared_ptr<Spieler> gegener)
             case 4:
                 iFeld = 4;
                 ++ispalte;
-                if (istGueltigeKoordinate(ireihe, ispalte) && gegener->gibZellenStatus(ireihe, ispalte) != VORBEI)
+                if (istKoordinateGueltig(ireihe, ispalte) && gegener->gibZellenStatus(ireihe, ispalte) != VORBEI)
                 {
                     break;
                 }
@@ -178,7 +178,7 @@ void Spiel::KIZug(std::shared_ptr<Spieler> gegener)
                 ispalte = globalRandom.GetRandomNumberBetween(1, SPIELFELD_GROESSE) - 1;
             }
 
-            if (Schuss(gegener, ireihe, ispalte))
+            if (hatKiGeschossen(gegener, ireihe, ispalte))
             {
                 moeglich = true;
             }
@@ -192,7 +192,7 @@ void Spiel::KIZug(std::shared_ptr<Spieler> gegener)
     {
         ireihe = globalRandom.GetRandomNumberBetween(1, SPIELFELD_GROESSE) - 1;
         ispalte = globalRandom.GetRandomNumberBetween(1, SPIELFELD_GROESSE) - 1;
-        if (Schuss(gegener, ireihe, ispalte))
+        if (hatKiGeschossen(gegener, ireihe, ispalte))
         {
             return;
         }
@@ -204,7 +204,7 @@ void Spiel::KIZug(std::shared_ptr<Spieler> gegener)
 }
 
 // Prüft und kennzeichnet ob ein Schiff versenkt wurde
-void Spiel::schiffversenkt(std::shared_ptr<Spieler> spieler)
+void Spiel::istSchiffVersenkt(std::shared_ptr<Spieler> spieler)
 {
 
     int schiffGroesse = 0;
@@ -325,14 +325,14 @@ void Spiel::schiffversenkt(std::shared_ptr<Spieler> spieler)
 }
 
 // Prüft ob alle schiffe versenkt wurden
-bool Spiel::alleSchiffeversenkt(std::shared_ptr<Spieler> spieler)
+bool Spiel::sindAlleSchiffeVersenkt(std::shared_ptr<Spieler> spieler)
 {
     bool alleSchiffeversenkt = true;
     for (int i = 0; i < SPIELFELD_GROESSE; ++i)
     {
         for (int j = 0; j < SPIELFELD_GROESSE; ++j)
         {
-            if (spieler->pruefeZellen(i, j, SCHIFF))
+            if (spieler->vergleicheZelle(i, j, SCHIFF))
             {
                 alleSchiffeversenkt = false;
                 return false;
@@ -351,12 +351,12 @@ bool Spiel::alleSchiffeversenkt(std::shared_ptr<Spieler> spieler)
     }
 }
 
-bool Spiel::istGueltigeKoordinate(int reihe, int spalte)
+bool Spiel::istKoordinateGueltig(int reihe, int spalte)
 {
     return reihe >= 0 && reihe < SPIELFELD_GROESSE && spalte >= 0 && spalte < SPIELFELD_GROESSE;
 }
 // Wandelt Buchstaben in Zahlen um
-int Spiel::koordinateZuIndex(char buchstabe)
+int Spiel::KoordinatenInIndexUmwandeln(char buchstabe)
 {
     return std::toupper(buchstabe) - 'A';
 }
@@ -365,29 +365,29 @@ bool Spiel::spielen(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> g
 {
     std::cout << "\nAuf in die Schlacht!" << std::endl;
     std::cout << "\nDas Feindliche Feld" << std::endl;
-    gegener->spielfeldAusgebe(false);
+    gegener->spielfeldAusgeben(false);
 
     std::cout << "\nIhre Flotte!" << std::endl;
-    spieler->spielfeldAusgebe(true);
+    spieler->spielfeldAusgeben(true);
 
     bool Spiel = true;
     while (Spiel)
     {
 
-        if (alleSchiffeversenkt(gegener))
+        if (sindAlleSchiffeVersenkt(gegener))
         {
             std::cout << "\nGlueckwunsch, Sie haben die Feindliche Flotte Besiegt!" << std::endl;
             Spiel = false;
-            gegener->spielfeldAusgebe(true);
+            gegener->spielfeldAusgeben(true);
             std::cout << "------------------------------" << std::endl;
             return 0;
         }
 
-        if (alleSchiffeversenkt(spieler))
+        if (sindAlleSchiffeVersenkt(spieler))
         {
             std::cout << "\nSchade, Sie wurden versenkt!" << std::endl;
             Spiel = false;
-            spieler->spielfeldAusgebe(true);
+            spieler->spielfeldAusgeben(true);
             std::cout << "------------------------------" << std::endl;
             return 0;
         }
@@ -399,8 +399,8 @@ bool Spiel::spielen(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> g
             {
                 return true;
             }
-            schiffversenkt(gegener);
-            gegener->spielfeldAusgebe(false);
+            istSchiffVersenkt(gegener);
+            gegener->spielfeldAusgeben(false);
             std::cout << "------------------------------" << std::endl;
             amZug = false;
         }
@@ -408,8 +408,8 @@ bool Spiel::spielen(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> g
         {
             std::cout << "\nDer Feind ist am Zug!" << std::endl;
             KIZug(spieler);
-            schiffversenkt(spieler);
-            spieler->spielfeldAusgebe(true);
+            istSchiffVersenkt(spieler);
+            spieler->spielfeldAusgeben(true);
             std::cout << "------------------------------" << std::endl;
             amZug = true;
         }
