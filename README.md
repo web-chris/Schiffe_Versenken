@@ -7,7 +7,7 @@ dabei können verschiedene Auswahl Möglichkeiten durch die Konsole angesteuert 
 um einen Punkt anzusteuern muss der entsprechende Buchstabe in der Klammer eingegeben werden.
 ```
 ***********************************************
-*          Willkommen bei Schiffe Versenken!  *
+*      Willkommen bei Schiffe Versenken!      *
 ***********************************************
 *                (m)enue                      *
 *                (f)ortsetzen                 *
