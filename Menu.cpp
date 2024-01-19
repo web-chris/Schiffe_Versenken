@@ -38,7 +38,7 @@ Option Menu::startMenu()
     {
         std::cout << "*                [f] Fortsetzen               *\n";
         std::cout << "*                [s] Speichern                *\n";
-        // std::cout << "*                [c] Cheaten                  *\n";
+        std::cout << "*                [c] Cheaten                  *\n";
     }
     std::cout << "*                [n] Neues Spiel              *\n";
     std::cout << "*                [l] Laden                    *\n";
