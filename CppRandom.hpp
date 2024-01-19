@@ -3,6 +3,7 @@
 #include <random>
 #include <iostream>
 #include <ctime>
+
 class Random
 {
     // Will be used to obtain a seed for the random number engine
@@ -14,5 +15,4 @@ public:
     Random() : gen(time(nullptr)) {}
     int GetRandomNumberBetween(int lower, int upper);
 };
-
 #endif

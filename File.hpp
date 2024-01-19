@@ -21,5 +21,4 @@ public:
     int save_data(std::shared_ptr<Spieler> ki, std::shared_ptr<Spieler> spieler);
     data_store load_data();
 };
-
 #endif

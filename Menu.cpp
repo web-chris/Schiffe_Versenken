@@ -100,7 +100,7 @@ int Menu::startMenu()
             case 'M':
                 return startMenu();
             case 'c':
-                std::cout << "\nEin Spion hat die Position der Feindlichen Flotte erspaeht" << std::endl;
+                std::cout << "\nEin Spion hat die Position der Feindlichen Flotte erspaeht!" << std::endl;
                 return 5;
 
             default:

@@ -38,5 +38,4 @@ public:
     void spielFeldInit();
     SpielFeld gibFeld();
 };
-
 #endif

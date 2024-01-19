@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include "CppRandom.hpp"
+
 enum ZellenStatus
 {
     LEER,
@@ -33,5 +34,4 @@ public:
     void platziere_Schiffe(int schifflaenge, int anzahl);
     SpielFeld gibFeld();
 };
-
 #endif

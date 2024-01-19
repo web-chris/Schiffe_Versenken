@@ -413,6 +413,5 @@ bool Spiel::spielen(std::shared_ptr<Spieler> spieler, std::shared_ptr<Spieler> g
             amZug = true;
         }
     }
-
     return 0;
 }
