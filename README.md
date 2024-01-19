@@ -6,14 +6,31 @@ Nach dem Spielstart wird in der Konsole das Menü angezeigt,
 dabei können verschiedene Auswahl Möglichkeiten durch die Konsole angesteuert werden,
 um einen Punkt anzusteuern muss der entsprechende Buchstabe in der Klammer eingegeben werden.
 ```
-~~~Menue~~~
+***********************************************
+*          Willkommen bei Schiffe Versenken!  *
+***********************************************
+*                (m)enue                      *
+*                (f)ortsetzen                 *
+*                (s)peichern                  *
+*                (n)eues Spiel                *
+*                (l)aden                      *
+*                (e)xit                       *
+***********************************************
+```
+#### Menü Erklärung: 
+Folgende eingaben sind im Menü möglich
+```
+m  : um in diese Menü zu gelangen
 
-(m)enue (um in diese Menue zu gelangen)
-(f)ortsetzen (setzt das Spiel fort)
-(n)eues Spiel (um ein neues Spiel zu Starten)
-(s)peichern (speichert das Spiel!)
-(l)aden (um ein gespeichertes Spiel zu laden)
-(e)xit (um das Spiel zu Beenden)
+f  : um ein Laufendes Spiel fortzusetzen (wird nur angezeigt wenn bereist ein Spiel läuft!)
+
+s  : um ein Laufendes Spiel zu speichern (wird nur angezeigt wenn bereist ein Spiel läuft!)
+
+n  : um ein Neues Spiel zu Starten
+
+l  : Ladet ein abgespeichertes Spiel (wird nur angezeigt wenn eine Speicherdatei vorhanden ist)
+
+e  : Beendet das spiel 
 ```
 
 ## Spiel Verlauf:
@@ -63,7 +80,7 @@ J  ~  ~  ~  ~  ~  ~  ~  ~  ~  ~
 Nachdem die Schiffe platziert wurden, wird ausgelost ob der Spieler oder der Computer Gegner anfangen darf.
 Wenn der Spieler am Zug ist kann er z.b. `A1` seinen Schuss abfeuern oder mit dem Befehl `exit` oder `menue` wieder ins Menü zurückkehren.
 
-## Legende: 
+### Legende: 
 ```
 ~  : Meer, verdecktes Feld
 
